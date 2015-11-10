@@ -1,0 +1,7 @@
+<h1>Admin Login</h1>
+
+<%= form_tag admin_sessions_path do %>
+  <%= email_field_tag :email, nil, placehold: "Email" %>
+  <%= password_field_tag :password, nil, placehold: "Password" %>
+  <%= submit_tag 'Log In' %>
+<% end %>

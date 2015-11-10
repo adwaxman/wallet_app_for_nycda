@@ -1,0 +1,30 @@
+<%= form_for @user do |f| %>
+  <%= f.label :fname, "First Name" %>
+  <%= f.text_field :fname %>
+  <br>
+  <br>
+  <%= f.label :lname, "Last Name" %>
+  <%= f.text_field :lname %>
+  <br>
+  <br>
+  <%= f.label :Phone %>
+  (<%= f.text_field :area_code, size: 3 %>)
+  <%= f.text_field :local_exchange, size: 3 %>
+  -
+  <%= f.text_field :phone_ending, size: 4 %>
+  <br>
+  <br>
+  <%= f.label :Email %>
+  <%= f.email_field :email %>
+  <br>
+  <br>
+  <%= f.label :Password %>
+  <%= f.password_field :password %>
+  <br>
+  <br>
+  <%= f.label :Confirm_Password %>
+  <%= f.password_field :password_confirmation %>
+  <br>
+  <br>
+  <%= f.submit "Sign Up" %>
+<% end %>

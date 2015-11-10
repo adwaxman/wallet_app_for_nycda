@@ -1,0 +1,46 @@
+<h1> <%=@user.fname + " " + @user.lname  %> </h1>
+<h2> <%= @user.email %> </h2>
+
+<% if @user.id == current_user.id %>
+  <h3>Cash Balance</h3>
+  <h4 class="cash-balance"> <%= @user.cash_balance %> </h4>
+
+  <%= link_to "<button class='btn btn-info'>Add Money</button>".html_safe, add_money_path, method: :get, remote: true, class: "add-money" unless @user.cash_balance.nil? %>
+  <br>
+  <br>
+  <%= link_to "<button class='btn btn-primary'>Add Card</button>".html_safe, new_credit_card_path, method: :get %>
+  <br>
+  <br>
+
+  <%= link_to "<button class='btn btn-danger' >Delete Account</button>".html_safe, user_path(current_user.id), method: :delete%>
+
+  <h1>My Cards</h1>
+    <ul>
+      <% @user.credit_cards.each do |card| %>
+      <% last_four = card.card_number[-4..-1] %>
+      <li>
+        <% if card.creator_id == @user.id %>
+        <a href="/credit_cards/<%=card.id  %>">
+          <%=   "XXXX-XXXX-XXXX-" + last_four + "***" %>
+        </a>
+        <%= card.card_type %>
+        <% else %>
+        <a href="/credit_cards/<%=card.id  %>">
+          <%= "XXXX-XXXX-XXXX-" + last_four %>
+        </a>
+        <%= card.card_type %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+
+
+<% end %>
+
+
+
+<script type="text/javascript">
+  $(".add-money").on("ajax:complete", function(element, data, status){
+    $(".cash-balance").html(data.responseText)
+  });
+</script>

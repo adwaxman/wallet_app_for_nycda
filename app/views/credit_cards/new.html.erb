@@ -1,0 +1,13 @@
+<h1>Add a card</h1>
+
+<% if @credit_card.errors.any? %>
+  <div class="error-div">
+    <ul>
+      <% @credit_card.errors.full_messages.each do |message| %>
+        <li class="error-message"> <%= message %> </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render 'form' %>

@@ -1,0 +1,18 @@
+<%= form_for @credit_card do |f| %>
+  <p>
+    <%= f.label :card_number, placeholder: "Card Number" %>
+    <%= f.text_field :card_number %>
+  </p>
+  <p>
+    <%= f.label :exp_month, "Month" %>
+    <%= f.select :exp_month, ['1', '2', '3','4', '5', '6','7','8','9','10','11','12']%>
+  </p>
+  <p>
+    <%= f.label :exp_year, "Year" %>
+    <%= f.select :exp_year, ['2015','2016','2017','2018','2019','2020']%>
+  </p>
+  <p>
+    <%= f.submit "Submit" %>
+  </p>
+
+<% end %>

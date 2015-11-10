@@ -1,0 +1,49 @@
+<% if current_user && @authorized %>
+  <h1>
+    <% last_four = @card.card_number[-4..-1] %>
+    <%= "XXXX-XXXX-XXXX-" + last_four %>
+
+  </h1>
+  <% if current_user && @card.creator_id == current_user.id %>
+    <h1>You are the card creator</h1>
+    <h3>If you would like to share your card with another user, please enter that user's email into the form below.</h3>
+
+    <%= form_for @share, url: credit_cards_users_path do |f| %>
+    <%= f.label :email %>
+    <%= f.email_field :user_id %>
+    <%= f.submit :Share %>
+    <%= f.hidden_field :credit_card_id, value: @card.id %>
+    <% end %>
+
+  <h1>Shared Users</h1>
+  <ul>
+    <% @card.users.each do |user| %>
+      <% @join_id = CreditCardsUser.where(credit_card_id: @card.id).where(user_id: user.id).first %>
+      <% if User.find(@card.creator_id) != user %>
+        <li>
+        <%= user.fname + " " + user.lname %>
+          <%= link_to "<button class='btn btn-danger' >Deauthorize User</button>".html_safe, credit_cards_user_path(@join_id), method: :delete %>
+        <% end %>
+      </li>
+      <br>
+    <% end %>
+  </ul>
+
+  <%= link_to "<button class='btn btn-success' >Update Card</button>".html_safe, edit_credit_card_path(@card.id) %>
+<br>
+<br>
+  <%= link_to "<button class='btn btn-danger' >Delete Card</button>".html_safe, credit_card_path(@card.id), method: :delete%>
+
+
+
+
+  <% else %>
+    <h1>Not card creator, but authorized</h1>
+  <% end %>
+<% else %>
+  <% if current_user %>
+    <h4>You do not have access to view this card.</h4>
+  <% else %>
+    <h4>"Please login to view you card."</h4>
+  <% end %>
+<% end %>

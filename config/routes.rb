@@ -1,9 +1,25 @@
 Rails.application.routes.draw do
+
+  namespace :admin do
+    resources :sessions, only: [:create, :new]
+    get '/logout', to: 'sessions#destroy', as: :logout
+    resources :credit_cards, :users
+  end
+
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  get 'logout', to: 'sessions#destroy'
+
+  get 'add_money', to: 'users#add_money'
+
+  resources :users, :credit_cards, :credit_cards_users
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

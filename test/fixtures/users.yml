@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  password: MyString
+  area_code: 1
+  local_exchange: 1
+  phone_ending: 1
+  cash_balance: 9.99
+
+two:
+  email: MyString
+  password: MyString
+  area_code: 1
+  local_exchange: 1
+  phone_ending: 1
+  cash_balance: 9.99

@@ -1,0 +1,25 @@
+<h1>List of credit cards for admin</h1>
+
+<ul>
+  <% @cards.each do |card| %>
+    <li>
+      <%= card.card_number + " " + card.card_type %>
+      <br>
+      <% @creator = User.find(card.creator_id) %>
+      <%= "Belongs to: " + @creator.fname + " " + @creator.lname %>
+      <a class="admin-delete">Delete Card</a>
+      <div class="admin-password-confirm">
+        <br>
+        <%= form_tag admin_credit_card_path(card.id), method: :delete %>
+        <%= password_field_tag :password, nil, placeholder: "Password" %>
+        <%= hidden_field_tag :credit_card_id, card.id %>
+        <%= submit_tag "Delete Card" %>
+      </div>
+      <br>
+      <br>
+    </li>
+  <% end %>
+</ul>
+<br>
+<br>
+<%= link_to "List of Users", admin_users_path, html_options = { "data-ajax" => :false }%>
